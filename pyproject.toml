@@ -8,4 +8,5 @@ dependencies = [
     "chainlit>=2.6.3",
     "openai-agents>=0.2.4",
     "python-dotenv>=1.1.1",
+    "requests>=2.32.4",
 ]
