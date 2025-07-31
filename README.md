@@ -1,10 +1,10 @@
 ---
-title: {{title}}
-emoji: {{emoji}}
-colorFrom: {{colorFrom}}
-colorTo: {{colorTo}}
-sdk: {{sdk}}
-sdk_version: "{{sdkVersion}}"
-app_file: app.py
+title: weather-app
+emoji: 🌤️
+colorFrom: indigo
+colorTo: blue
+sdk: docker
+sdk_version: "1.0"
+app_file: main.py
 pinned: false
 ---
