@@ -11,4 +11,4 @@ COPY . /app
 RUN uv sync
 
 # Start the Chainlit app
-CMD ["uv", "run", "chainlit", "run", "main.py", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uv", "run", "chainlit", "run", "main.py", "--host", "0.0.0.0", "--port", "7860"]
