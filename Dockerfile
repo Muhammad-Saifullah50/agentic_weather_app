@@ -4,25 +4,21 @@ FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim
 # Set working directory
 WORKDIR /app
 
-# Set UV cache directory to /tmp/uv-cache
-ENV UV_CACHE_DIR=/tmp/uv-cache
+# Set UV cache directory inside the app folder
+ENV UV_CACHE_DIR=/app/.uv-cache
 
-# Create cache directory with full permissions
-RUN mkdir -p $UV_CACHE_DIR && chmod -R 777 $UV_CACHE_DIR
-
-# Copy project files
+# Copy files
 COPY . /app
 
-# Install dependencies as root
+# Create cache dir with full permissions (before installing)
+RUN mkdir -p $UV_CACHE_DIR && chmod -R 777 $UV_CACHE_DIR
+
+# Install dependencies
 RUN uv sync
 
-# Create a non-root user
+# Create and switch to non-root user
 RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
-
-# Make sure /app and /tmp are accessible by the user
-RUN chown -R appuser:appgroup /app /tmp
-
-# Switch to non-root user
+RUN chown -R appuser:appgroup /app
 USER appuser
 
 # Run the app
