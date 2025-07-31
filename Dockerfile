@@ -4,8 +4,8 @@ FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim
 # Set working directory
 WORKDIR /app
 
-# Set UV cache directory to a writable path
-ENV UV_CACHE_DIR=/app/.cache/uv
+# Set UV cache directory to /tmp (fully writable)
+ENV UV_CACHE_DIR=/tmp/uv-cache
 
 # Copy files
 COPY . /app
