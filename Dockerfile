@@ -13,6 +13,7 @@ COPY --chown=user . .
 USER user
 
 # Install dependencies
+RUN uv venv
 RUN uv pip install -r requirements.txt
 
 # Run Chainlit using uv
