@@ -1,24 +1,19 @@
-# Base image with Python 3.13 and uv
+# Use uv base image
 FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim
 
 RUN useradd -m -u 1000 user
 
+# Set working directory to a user-owned directory
+WORKDIR /home/user/app
+
+# Copy files and change ownership
+COPY --chown=user . .
+
+# Switch to non-root user
 USER user
 
-ENV PATH="/home/user/.local/bin:$PATH"
-ENV VIRTUAL_ENV=/home/user/venv
-RUN python -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+# Install dependencies
+RUN uv pip install -r requirements.txt
 
-COPY . /app
-# Set working directory
-WORKDIR  /app
-
-COPY --chown=user ./requirements.txt requirements.txt
-
-RUN pip install --no-cache-dir --upgrade pip
-RUN pip install --no-cache-dir chainlit
-RUN pip install -r requirements.txt
- 
-
-CMD ["chainlit", "run", "main.py", "--host", "0.0.0.0", "--port", "7860"]
+# Run Chainlit using uv
+CMD ["uv", "run", "chainlit", "run", "main.py", "--host", "0.0.0.0", "--port", "7860"]
