@@ -13,7 +13,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 # Set working directory
 WORKDIR /app
 
-COPY --chown=user ./requirements.txt requirements.txt
+# COPY --chown=user ./requirements.txt requirements.txt
 
 # Install dependencies
 RUN uv sync
