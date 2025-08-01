@@ -10,8 +10,9 @@ ENV VIRTUAL_ENV=/home/user/venv
 RUN python -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
+COPY . /app
 # Set working directory
-WORKDIR /app
+WORKDIR  /app
 
 COPY --chown=user ./requirements.txt requirements.txt
 
