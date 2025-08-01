@@ -1,5 +1,6 @@
 from agents import Runner
 import chainlit as cl
+from openai.types.responses import ResponseTextDeltaEvent
 
 from ai_agents.weather_agent import weather_agent
 
@@ -20,13 +21,22 @@ async def main(message: cl.Message):
             "content": message.content,
         }
     )
-    
-        result = await Runner.run(
+        
+        msg = cl.Message("")
+        await msg.send()
+
+        result = Runner.run_streamed(
             weather_agent,
             input=history,
         )
-    
-        await cl.Message(result.final_output).send()
+     
+
+
+        async for event in result.stream_events():
+            if event.type == 'raw_response_event' and isinstance(event.data, ResponseTextDeltaEvent):
+                token = event.data.delta or ""
+                await msg.stream_token(token)
+
     
         history.append(
         {
