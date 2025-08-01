@@ -17,7 +17,7 @@ WORKDIR /home/user/app
 COPY --chown=user . .
 
 # OPTIONAL: Create and activate venv with uv (only needed if you're not using `uv pip`)
-# RUN uv venv
+RUN uv venv
 
 # Install dependencies
 RUN uv pip install -r requirements.txt
