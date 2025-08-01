@@ -13,10 +13,11 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 # Set working directory
 WORKDIR /app
 
-# COPY --chown=user ./requirements.txt requirements.txt
+COPY --chown=user ./requirements.txt requirements.txt
 
-# Install dependencies
-RUN uv sync
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir chainlit
+RUN pip install -r requirements.txt
+ 
 
-# Run the app
-CMD ["uv", "run", "chainlit", "run", "main.py", "--host", "0.0.0.0", "--port", "7860"]
+CMD ["python", "-m", "chainlit", "run", "main.py", "--host", "0.0.0.0", "--port", "7000"]
