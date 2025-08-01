@@ -16,7 +16,7 @@ def get_weather(city: str) -> str:
     if not api_key:
         return "API key not found. Please set the WEATHER_API_KEY environment variable."
     
-    querystring = {"city":"new york","lang":"EN"}
+    querystring = {"city":f"{city}","lang":"EN"}
 
     headers = {
         "X-RapidAPI-Key": api_key,
